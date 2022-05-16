@@ -348,3 +348,23 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+UnityTypedAnimator/Library/
+
+UnityTypedAnimator/Temp/
+
+UnityTypedAnimator/.vsconfig
+
+UnityTypedAnimator/Assembly-CSharp-Editor.csproj
+
+UnityTypedAnimator/Assembly-CSharp.csproj
+
+UnityTypedAnimator/EgoParadise.UnityTypedAnimator.Editor.csproj
+
+UnityTypedAnimator/UnityTypedAnimator.csproj
+
+UnityTypedAnimator/UnityTypedAnimator.Editor.csproj
+
+UnityTypedAnimator/UnityTypedAnimator.sln
+
+UnityTypedAnimator/UserSettings/
