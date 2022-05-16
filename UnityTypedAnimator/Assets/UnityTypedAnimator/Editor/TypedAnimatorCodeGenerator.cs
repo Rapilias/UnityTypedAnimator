@@ -84,8 +84,18 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 var escapedParameterName = EscapeName(parameter.name);
                 builder.Append($"{classIndent}public readonly int {escapedParameterName}Id = Animator.StringToHash(\"{parameter.name}\");\n");
             }
+            foreach (var parameter in context.activeAnimator.animator.layers)
+            {
+                var escapedParameterName = EscapeName(parameter.name);
+                builder.Append($"{classIndent}public readonly int {escapedParameterName}Id;\n");
+            }
             builder.Append($"\n{classIndent}public {context.animatorName}(Animator animator)\n{classIndent}{{\n");
             builder.Append($"{functionIndent}this.animator = animator;\n");
+            foreach (var parameter in context.activeAnimator.animator.layers)
+            {
+                var escapedParameterName = EscapeName(parameter.name);
+                builder.Append($"{functionIndent}{escapedParameterName}Id = this.animator.GetLayerIndex(\"{parameter.name}\");\n");
+            }
             builder.Append($"{classIndent}}}\n\n");
         }
 
@@ -115,6 +125,32 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 var writer = context.writerTable[parameter.type];
                 writer.WriteOtherParameterFunction(builder, escapedParameterName, 4 * 2, 4);
             }
+
+            if (context.activeAnimator.animator.layers.Any())
+                builder.Append("\n");
+            foreach (var parameter in context.activeAnimator.animator.layers)
+            {
+                var escapedParameterName = EscapeName(parameter.name);
+                WriteGetLayerWeightFunction(builder, escapedParameterName, 4 * 2, 4);
+            }
+            if (context.activeAnimator.animator.layers.Any())
+                builder.Append("\n");
+            foreach (var parameter in context.activeAnimator.animator.layers)
+            {
+                var escapedParameterName = EscapeName(parameter.name);
+                WriteSetLayerWeightFunction(builder, escapedParameterName, 4 * 2, 4);
+            }
+        }
+
+        public static void WriteGetLayerWeightFunction(StringBuilder builder, string name, int baseIndent, int indentStep)
+        {
+            var indent = new string(' ', baseIndent);
+            builder.Append($"{indent}public float Get{name}() => this.animator.GetLayerWeight(this.{name}Id);\n");
+        }
+        public static void WriteSetLayerWeightFunction(StringBuilder builder, string name, int baseIndent, int indentStep)
+        {
+            var indent = new string(' ', baseIndent);
+            builder.Append($"{indent}public void Set{name}(float {name}) => this.animator.SetLayerWeight(this.{name}Id, {name});\n");
         }
     }
 }
