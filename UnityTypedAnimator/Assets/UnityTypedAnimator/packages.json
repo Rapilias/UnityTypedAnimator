@@ -1,0 +1,12 @@
+{
+    "name": "com.egoparadise.unity-typed-animator",
+    "displayName": "UnityTypedAnimator",
+    "author": { "name": "Rapilias", "url": "https://github.com/Rapilias" },
+    "version": "1.0.0",
+    "unity": "2022.1",
+    "description": "Animator code generator.",
+    "keywords": ["animator", "codegenerator"],
+    "category": "codegenerator",
+    "dependencies": {},
+    "type": "codegenerator"
+}
