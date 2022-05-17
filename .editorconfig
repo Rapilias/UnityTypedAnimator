@@ -1,0 +1,29 @@
+root = true
+
+[*.cs]
+end_of_line = lf
+charset = utf-8
+tab_width = 4
+indent_size = 4
+indent_style = space
+
+[*.uxml]
+end_of_line = lf
+charset = utf-8
+tab_width = 4
+indent_size = 4
+indent_style = space
+
+[*.uss]
+end_of_line = lf
+charset = utf-8
+tab_width = 4
+indent_size = 4
+indent_style = space
+
+[*.json]
+end_of_line = lf
+charset = utf-8
+tab_width = 4
+indent_size = 4
+indent_style = space
