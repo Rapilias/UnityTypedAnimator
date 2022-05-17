@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 namespace EgoParadise.UnityTypedAnimator.Editor
@@ -38,7 +40,12 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 ConstructSingle(context);
             }
 
-            File.WriteAllText("A.cs", context.builder.ToString());
+            var path = $"{Application.dataPath}/{context.config.exportPath}.cs";
+            var directory = Path.GetDirectoryName(path);
+            Directory.CreateDirectory(directory);
+            File.WriteAllText(path, context.builder.ToString());
+            AssetDatabase.Refresh();
+            Debug.Log($"{nameof(TypedAnimatorCodeGenerator)}: Exported Types to {path}");
         }
 
         public static string EscapeName(string name)
