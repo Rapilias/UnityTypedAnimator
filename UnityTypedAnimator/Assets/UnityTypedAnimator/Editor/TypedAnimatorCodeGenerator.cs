@@ -74,7 +74,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         {
             var builder = context.builder;
             var classIndent = new string(' ', 4);
-            using (builder.Block($"{classIndent}class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
+            using (builder.Block($"{classIndent}public class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
             {
                 WriteClassFieldAndConstructor(context);
                 WriteParameterFunction(context);
