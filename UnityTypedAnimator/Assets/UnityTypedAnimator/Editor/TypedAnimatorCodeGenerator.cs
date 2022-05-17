@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 namespace EgoParadise.UnityTypedAnimator.Editor
@@ -14,6 +16,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             public AnimatorCodeGenConfigureAsset activeAnimator;
             public AnimatorCodeGenGlobalConfigureAsset config;
             public Dictionary<AnimatorControllerParameterType, IParameterWriter> writerTable;
+            public string typeName => $"{this.config.typePrefix}{this.activeAnimator.typeName}{this.config.typeSuffix}";
             public string animatorName;
         }
 
@@ -38,7 +41,12 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 ConstructSingle(context);
             }
 
-            File.WriteAllText("A.cs", context.builder.ToString());
+            var path = $"{Application.dataPath}/{context.config.exportPath}.cs";
+            var directory = Path.GetDirectoryName(path);
+            Directory.CreateDirectory(directory);
+            File.WriteAllText(path, context.builder.ToString());
+            AssetDatabase.Refresh();
+            Debug.Log($"{nameof(TypedAnimatorCodeGenerator)}: Exported Types to {path}");
         }
 
         public static string EscapeName(string name)
@@ -66,7 +74,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         {
             var builder = context.builder;
             var classIndent = new string(' ', 4);
-            using (builder.Block($"{classIndent}class {context.animatorName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
+            using (builder.Block($"{classIndent}class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
             {
                 WriteClassFieldAndConstructor(context);
                 WriteParameterFunction(context);
@@ -89,7 +97,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 var escapedParameterName = EscapeName(parameter.name);
                 builder.Append($"{classIndent}public readonly int {escapedParameterName}Id;\n");
             }
-            builder.Append($"\n{classIndent}public {context.animatorName}(Animator animator)\n{classIndent}{{\n");
+            builder.Append($"\n{classIndent}public {context.typeName}(Animator animator)\n{classIndent}{{\n");
             builder.Append($"{functionIndent}this.animator = animator;\n");
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
