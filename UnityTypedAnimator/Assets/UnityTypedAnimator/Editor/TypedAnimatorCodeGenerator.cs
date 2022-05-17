@@ -43,7 +43,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
 
         public static string EscapeName(string name)
         {
-            return name.Replace(" ", "").Replace("�@", "");
+            return name.Replace(" ", "").Replace("　", "");
         }
 
         private static StringBuilder ConstructSingle(Context context)
