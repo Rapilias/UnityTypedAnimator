@@ -43,7 +43,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
 
         public static string EscapeName(string name)
         {
-            return name.Replace(" ", "").Replace("Å@", "");
+            return name.Replace(" ", "").Replace("ÔøΩ@", "");
         }
 
         private static StringBuilder ConstructSingle(Context context)
@@ -94,7 +94,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
                 var escapedParameterName = EscapeName(parameter.name);
-                builder.Append($"{functionIndent}{escapedParameterName}Id = this.animator.GetLayerIndex(\"{parameter.name}\");\n");
+                builder.Append($"{functionIndent}this.{escapedParameterName}Id = this.animator.GetLayerIndex(\"{parameter.name}\");\n");
             }
             builder.Append($"{classIndent}}}\n\n");
         }
