@@ -16,6 +16,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             public AnimatorCodeGenConfigureAsset activeAnimator;
             public AnimatorCodeGenGlobalConfigureAsset config;
             public Dictionary<AnimatorControllerParameterType, IParameterWriter> writerTable;
+            public string typeName => $"{this.config.typePrefix}{this.activeAnimator.typeName}{this.config.typeSuffix}";
             public string animatorName;
         }
 
@@ -73,8 +74,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         {
             var builder = context.builder;
             var classIndent = new string(' ', 4);
-            var typeName = $"{context.config.typePrefix}{context.activeAnimator.typeName}{context.config.typeSuffix}";
-            using (builder.Block($"{classIndent}class {typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
+            using (builder.Block($"{classIndent}class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
             {
                 WriteClassFieldAndConstructor(context);
                 WriteParameterFunction(context);
@@ -97,7 +97,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 var escapedParameterName = EscapeName(parameter.name);
                 builder.Append($"{classIndent}public readonly int {escapedParameterName}Id;\n");
             }
-            builder.Append($"\n{classIndent}public {context.animatorName}(Animator animator)\n{classIndent}{{\n");
+            builder.Append($"\n{classIndent}public {context.typeName}(Animator animator)\n{classIndent}{{\n");
             builder.Append($"{functionIndent}this.animator = animator;\n");
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
