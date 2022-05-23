@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AnimatorCodeGenGlobalConfigureAsset
   m_EditorClassIdentifier: 
   <exportPath>k__BackingField: AnimatorTypes
-  <exportNamespace>k__BackingField: Rapilias.Generated
+  <exportNamespace>k__BackingField: EgoParadise.Generated
   <typePrefix>k__BackingField: 
   <typeSuffix>k__BackingField: 
   <splitFile>k__BackingField: 1
