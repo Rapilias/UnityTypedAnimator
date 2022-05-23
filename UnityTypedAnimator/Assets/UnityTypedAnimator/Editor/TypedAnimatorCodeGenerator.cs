@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -110,11 +109,14 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         private static void WriteParameterFunction(Context context)
         {
             var builder = context.builder;
+            var indentStep = 4;
+            var indent = indentStep * 2;
+            // Parameter
             foreach (var parameter in context.activeAnimator.animator.parameters)
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteGetParameterFunction(builder, escapedParameterName, 4 * 2, 4);
+                writer.WriteGetParameterFunction(builder, escapedParameterName, indent, indentStep);
             }
             if(context.activeAnimator.animator.parameters.Any())
                 builder.Append("\n");
@@ -122,7 +124,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteSetParameterFunction(builder, escapedParameterName, 4 * 2, 4);
+                writer.WriteSetParameterFunction(builder, escapedParameterName, indent, indentStep);
             }
 
             if (context.activeAnimator.animator.parameters.Any())
@@ -131,22 +133,23 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteOtherParameterFunction(builder, escapedParameterName, 4 * 2, 4);
+                writer.WriteOtherParameterFunction(builder, escapedParameterName, indent, indentStep);
             }
 
+            // Layer
             if (context.activeAnimator.animator.layers.Any())
                 builder.Append("\n");
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
                 var escapedParameterName = EscapeName(parameter.name);
-                WriteGetLayerWeightFunction(builder, escapedParameterName, 4 * 2, 4);
+                LayerWriter.WriteGetLayerWeightFunction(builder, escapedParameterName, indent, indentStep);
             }
             if (context.activeAnimator.animator.layers.Any())
                 builder.Append("\n");
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
                 var escapedParameterName = EscapeName(parameter.name);
-                WriteSetLayerWeightFunction(builder, escapedParameterName, 4 * 2, 4);
+                LayerWriter.WriteSetLayerWeightFunction(builder, escapedParameterName, indent, indentStep);
             }
         }
 
