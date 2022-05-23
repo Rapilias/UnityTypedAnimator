@@ -152,16 +152,5 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 LayerWriter.WriteSetLayerWeightFunction(builder, escapedParameterName, indent, indentStep);
             }
         }
-
-        public static void WriteGetLayerWeightFunction(StringBuilder builder, string name, int baseIndent, int indentStep)
-        {
-            var indent = new string(' ', baseIndent);
-            builder.Append($"{indent}public float Get{name}() => this.animator.GetLayerWeight(this.{name}Id);\n");
-        }
-        public static void WriteSetLayerWeightFunction(StringBuilder builder, string name, int baseIndent, int indentStep)
-        {
-            var indent = new string(' ', baseIndent);
-            builder.Append($"{indent}public void Set{name}(float {name}) => this.animator.SetLayerWeight(this.{name}Id, {name});\n");
-        }
     }
 }
