@@ -19,23 +19,19 @@ namespace EgoParadise.UnityTypedAnimator.Editor
 
         public override VisualElement CreateInspectorGUI()
         {
-            var treeAssetPath = AssetDatabase.GUIDToAssetPath(uxmlPath);
+            var treeAssetPath = AssetDatabase.GUIDToAssetPath(this.uxmlPath);
             var treeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(treeAssetPath);
             this.container = treeAsset.Instantiate();
 
             var animatorContainer = this.container.Q<ObjectField>("AnimatorController");
-            animatorContainer.RegisterValueChangedCallback(OnAnimatorControllerChanged);
-            this.parameterScrollView = container.Q<ScrollView>("Parameters");
+            animatorContainer.RegisterValueChangedCallback(this.OnAnimatorControllerChanged);
+            this.parameterScrollView = this.container.Q<ScrollView>("Parameters");
             var typeNameField = this.container.Q<TextField>("TypeName");
-            typeNameField.RegisterValueChangedCallback(m =>
-            {
-                this.targetAsset.typeName = m.newValue;
-            });
+            typeNameField.RegisterValueChangedCallback(this.OnTypeNameChanged);
 
-            animatorContainer.value = targetAsset.animator;
-            typeNameField.value = targetAsset.typeName;
-            
-            var ev = ChangeEvent<Object>.GetPooled(null, targetAsset.animator);
+            animatorContainer.value = this.targetAsset.animator;
+            typeNameField.value = this.targetAsset.typeName;
+            var ev = ChangeEvent<Object>.GetPooled(null, this.targetAsset.animator);
             this.OnAnimatorControllerChanged(ev);
             return this.container;
         }
@@ -45,10 +41,18 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             this.Repaint();
         }
 
+        private void OnTypeNameChanged(ChangeEvent<string> m)
+        {
+            var props = this.serializedObject.FindProperty(ReflectionUtility.ToBackingField(nameof(this.targetAsset.typeName)));
+            props.stringValue = m.newValue;
+            this.SaveAsset();
+        }
         private void OnAnimatorControllerChanged(ChangeEvent<Object> callback)
         {
             var animatorController = callback.newValue as AnimatorController;
-            targetAsset.animator = animatorController;
+            var props = this.serializedObject.FindProperty(ReflectionUtility.ToBackingField(nameof(this.targetAsset.animator)));
+            props.objectReferenceValue = animatorController;
+            this.SaveAsset();
 
             if (animatorController == null)
             {
@@ -58,6 +62,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 this.UpdateContainer(animatorController.parameters);
             }
+
         }
 
         private void UpdateContainer(IEnumerable<AnimatorControllerParameter> parameters)
@@ -68,6 +73,11 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 var label = new Label($"{item.type.ToString()}: {item.name}");
                 this.parameterScrollView.contentContainer.Add(label);
             }
+        }
+
+        private void SaveAsset()
+        {
+            this.serializedObject.ApplyModifiedProperties();
         }
     }
 }
