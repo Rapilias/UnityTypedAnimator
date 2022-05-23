@@ -1,3 +1,19 @@
 {
-	"name": "EgoParadise.UnityTypedAnimator.Editor.Tests"
+    "name": "EgoParadise.UnityTypedAnimator.Editor.Tests",
+    "rootNamespace": "EgoParadise.UnityTypedAnimator.Editor.Tests",
+    "references": [
+        "GUID:4cc3f26fa99e4dd4ab7cd703a19038b0",
+        "GUID:0acc523941302664db1f4e527237feb3"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
