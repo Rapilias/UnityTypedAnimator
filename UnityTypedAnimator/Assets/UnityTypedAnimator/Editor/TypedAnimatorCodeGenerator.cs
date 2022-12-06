@@ -61,7 +61,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                            $"/// </auto-generated>\n\n");
             builder.Append($"using UnityEngine;\n\n");
             
-            using (builder.Block($"namespace {context.config.exportNamespace}\n{{\n", "}\n"))
+            using (builder.CreateBlockWriter($"namespace {context.config.exportNamespace}\n{{\n", "}\n"))
             {
                 WriteClass(context);
             }
@@ -73,7 +73,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         {
             var builder = context.builder;
             var classIndent = new string(' ', 4);
-            using (builder.Block($"{classIndent}public class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
+            using (builder.CreateBlockWriter($"{classIndent}public class {context.typeName}\n{classIndent}{{\n", $"{classIndent}}}\n"))
             {
                 WriteClassFieldAndConstructor(context);
                 WriteParameterFunction(context);
