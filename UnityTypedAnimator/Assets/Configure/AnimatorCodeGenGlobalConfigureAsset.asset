@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4727679e0022d140bba40a508bb2e6d, type: 3}
   m_Name: AnimatorCodeGenGlobalConfigureAsset
   m_EditorClassIdentifier: 
-  exportDirectory: 
-  exportFilePath: 
-  exportNamespace: 
+  exportDirectory: UnityTypedAnimator/Generated
+  exportFilePath: UnityTypedAnimator/Generated/Animators
+  exportNamespace: EgoParadise.UnityTypedAnimator.Generated
   typePrefix: 
   typeSuffix: 
   splitFile: 1
-  configures: []
+  configures:
+  - {fileID: 11400000, guid: 73f4d3793f523d745a1574d08f9bc290, type: 2}
+  - {fileID: 11400000, guid: bdd5aa60295993f489fedc4edc30aff3, type: 2}
