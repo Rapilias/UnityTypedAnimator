@@ -1,12 +1,8 @@
+using EgoParadise.UnityTypedAnimator.Editor.Editor;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 using UnityEditor;
-using UnityEditor.Animations;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using Object = UnityEngine.Object;
 
 namespace EgoParadise.UnityTypedAnimator.Editor
 {
@@ -14,15 +10,32 @@ namespace EgoParadise.UnityTypedAnimator.Editor
     public class AnimatorCodeGenGlobalConfigureAssetEditor : UnityEditor.Editor
     {
         private AnimatorCodeGenGlobalConfigureAsset targetAsset => this.target as AnimatorCodeGenGlobalConfigureAsset;
-        
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
 
-            if (GUILayout.Button("Generate"))
+        public override VisualElement CreateInspectorGUI()
+        {
+            var root = new VisualElement();
+
+            InspectorElement.FillDefaultInspector(root, this.serializedObject, this);
+            
+            var exportFilePath = root.QDefaultProperty(nameof(AnimatorCodeGenGlobalConfigureAsset.exportFilePath));
+            var exportDirectory = root.QDefaultProperty(nameof(AnimatorCodeGenGlobalConfigureAsset.exportDirectory));
+
+            if(this.targetAsset.splitFile)
             {
-                TypedAnimatorCodeGenerator.Generate(this.targetAsset);
+                exportFilePath.SetEnabled(false);
+                exportDirectory.SetEnabled(true);
             }
+            else
+            {
+                exportFilePath.SetEnabled(true);
+                exportDirectory.SetEnabled(false);
+            }
+
+            var button = new Button(() => TypedAnimatorCodeGenerator.Generate(this.targetAsset));
+            button.text = "Generate";
+            root.Add(button);
+            
+            return root;
         }
     }
 }

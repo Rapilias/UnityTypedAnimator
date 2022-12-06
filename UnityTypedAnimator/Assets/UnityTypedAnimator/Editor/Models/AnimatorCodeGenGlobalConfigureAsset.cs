@@ -7,18 +7,13 @@ namespace EgoParadise.UnityTypedAnimator.Editor
     [CreateAssetMenu(fileName = "AnimatorCodeGenGlobalConfigureAsset", menuName = "EgoParadise/AnimatorCodeGenGlobal")]
     public class AnimatorCodeGenGlobalConfigureAsset : ScriptableObject
     {
-        [field: SerializeField]
-        public string exportPath { get; set; }
-        [field: SerializeField]
-        public string exportNamespace { get; set; }
-        [field: SerializeField]
-        public string typePrefix { get; set; }
-        [field: SerializeField]
-        public string typeSuffix { get; set; }
-        [field: SerializeField] 
-        public bool splitFile { get; set; } = true;
+        public string exportDirectory;
+        public string exportFilePath;
+        public string exportNamespace;
+        public string typePrefix;
+        public string typeSuffix;
+        public bool splitFile = true;
 
-        [field: SerializeField]
-        public List<AnimatorCodeGenConfigureAsset> configures { get; set; } = new List<AnimatorCodeGenConfigureAsset>();
+        public List<AnimatorCodeGenConfigureAsset> configures = new List<AnimatorCodeGenConfigureAsset>();
     }
 }
