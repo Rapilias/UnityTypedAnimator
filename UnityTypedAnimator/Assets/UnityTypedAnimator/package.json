@@ -5,8 +5,8 @@
         "name": "Rapilias",
         "url": "https://github.com/Rapilias"
     },
-    "version": "1.0.2",
-    "unity": "2021.3",
+    "version": "1.0.1",
+    "unity": "2022.1",
     "description": "Animator code generator.",
     "keywords": [
         "animator",
