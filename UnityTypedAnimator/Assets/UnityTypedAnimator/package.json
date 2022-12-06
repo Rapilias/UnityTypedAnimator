@@ -5,8 +5,8 @@
         "name": "Rapilias",
         "url": "https://github.com/Rapilias"
     },
-    "version": "1.0.1",
-    "unity": "2022.1",
+    "version": "1.1.0",
+    "unity": "2021.3",
     "description": "Animator code generator.",
     "keywords": [
         "animator",
@@ -14,5 +14,8 @@
     ],
     "category": "codegenerator",
     "dependencies": {},
-    "type": "codegenerator"
+    "repository": {
+        "url": "https://github.com/Rapilias/UnityTypedAnimator.git",
+        "type": "git"
+    }
 }
