@@ -24,7 +24,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
 
     public static class BlockTextWriterExtensions
     {
-        public static BlockTextWriter CreateBlockWriter(this StringBuilder builder, string beginText, string endText)
+        public static BlockTextWriter Block(this StringBuilder builder, string beginText, string endText)
         {
             return new BlockTextWriter(builder, beginText, endText);
         }
