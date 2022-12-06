@@ -353,16 +353,8 @@ UnityTypedAnimator/Temp/
 
 UnityTypedAnimator/.vsconfig
 
-UnityTypedAnimator/Assembly-CSharp-Editor.csproj
-
-UnityTypedAnimator/Assembly-CSharp.csproj
-
-UnityTypedAnimator/EgoParadise.UnityTypedAnimator.Editor.csproj
-
-UnityTypedAnimator/UnityTypedAnimator.csproj
-
-UnityTypedAnimator/UnityTypedAnimator.Editor.csproj
-
+UnityTypedAnimator/*.csproj
 UnityTypedAnimator/UnityTypedAnimator.sln
 
 UnityTypedAnimator/UserSettings/
+Generated*
