@@ -9,7 +9,6 @@ namespace EgoParadise.UnityTypedAnimator.Editor
         {
             var indent = new string(' ', baseIndent);
             builder.Append($"{indent}public int Get{name}() => this.animator.GetInteger(this.{name}Id);\n");
-
         }
 
         public void WriteSetParameterFunction(StringBuilder builder, string name, int baseIndent, int indentStep)
