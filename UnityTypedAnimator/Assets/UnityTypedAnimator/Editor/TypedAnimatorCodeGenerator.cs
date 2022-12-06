@@ -15,6 +15,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             public AnimatorCodeGenConfigureAsset activeAnimator;
             public AnimatorCodeGenGlobalConfigureAsset config;
             public Dictionary<AnimatorControllerParameterType, IParameterWriter> writerTable;
+            public IParameterWriter layerWriter;
             public string typeName => $"{this.config.typePrefix}{this.activeAnimator.typeName}{this.config.typeSuffix}";
             public string animatorName;
         }
@@ -32,6 +33,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
                 [AnimatorControllerParameterType.Float] = new FloatParameterWriter(),
                 [AnimatorControllerParameterType.Trigger] = new TriggerParameterWriter(),
             };
+            context.layerWriter = new LayerWriter();
 
             foreach (var configure in asset.configures)
             {
@@ -116,7 +118,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteGetParameterFunction(builder, escapedParameterName, indent, indentStep);
+                writer.WriteGetParameterFunction(builder, escapedParameterName, indent);
             }
             if(context.activeAnimator.animator.parameters.Any())
                 builder.Append("\n");
@@ -124,7 +126,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteSetParameterFunction(builder, escapedParameterName, indent, indentStep);
+                writer.WriteSetParameterFunction(builder, escapedParameterName, indent);
             }
 
             if (context.activeAnimator.animator.parameters.Any())
@@ -133,7 +135,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             {
                 var escapedParameterName = EscapeName(parameter.name);
                 var writer = context.writerTable[parameter.type];
-                writer.WriteOtherParameterFunction(builder, escapedParameterName, indent, indentStep);
+                writer.WriteOtherParameterFunction(builder, escapedParameterName, indent);
             }
 
             // Layer
@@ -142,14 +144,21 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
                 var escapedParameterName = EscapeName(parameter.name);
-                LayerWriter.WriteGetLayerWeightFunction(builder, escapedParameterName, indent, indentStep);
+                context.layerWriter.WriteGetParameterFunction(builder, escapedParameterName, indent);
             }
             if (context.activeAnimator.animator.layers.Any())
                 builder.Append("\n");
             foreach (var parameter in context.activeAnimator.animator.layers)
             {
                 var escapedParameterName = EscapeName(parameter.name);
-                LayerWriter.WriteSetLayerWeightFunction(builder, escapedParameterName, indent, indentStep);
+                context.layerWriter.WriteSetParameterFunction(builder, escapedParameterName, indent);
+            }
+            if (context.activeAnimator.animator.layers.Any())
+                builder.Append("\n");
+            foreach (var parameter in context.activeAnimator.animator.layers)
+            {
+                var escapedParameterName = EscapeName(parameter.name);
+                context.layerWriter.WriteOtherParameterFunction(builder, escapedParameterName, indent);
             }
         }
     }
