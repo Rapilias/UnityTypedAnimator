@@ -43,14 +43,14 @@ namespace EgoParadise.UnityTypedAnimator.Editor
 
         private void OnTypeNameChanged(ChangeEvent<string> m)
         {
-            var props = this.serializedObject.FindProperty(ReflectionUtility.ToBackingField(nameof(this.targetAsset.typeName)));
+            var props = this.serializedObject.FindProperty(nameof(this.targetAsset.typeName));
             props.stringValue = m.newValue;
             this.SaveAsset();
         }
         private void OnAnimatorControllerChanged(ChangeEvent<Object> callback)
         {
             var animatorController = callback.newValue as AnimatorController;
-            var props = this.serializedObject.FindProperty(ReflectionUtility.ToBackingField(nameof(this.targetAsset.animator)));
+            var props = this.serializedObject.FindProperty(nameof(this.targetAsset.animator));
             props.objectReferenceValue = animatorController;
             this.SaveAsset();
 
