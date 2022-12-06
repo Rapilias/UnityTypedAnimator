@@ -1,6 +1,6 @@
 namespace EgoParadise.UnityTypedAnimator.Editor
 {
-    public static class ReflectionUtility
+    internal static class ReflectionUtility
     {
         public static string ToBackingField(string name)
         {
