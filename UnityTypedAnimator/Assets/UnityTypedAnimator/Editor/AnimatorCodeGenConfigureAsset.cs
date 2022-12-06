@@ -6,7 +6,9 @@ namespace EgoParadise.UnityTypedAnimator.Editor
     [CreateAssetMenu(fileName = "AnimatorCodeGenConfigureAsset", menuName = "EgoParadise/AnimatorCodeGen")]
     public class AnimatorCodeGenConfigureAsset : ScriptableObject
     {
-        public AnimatorController animator = null;
-        public string typeName = string.Empty;
+        [field: SerializeField]
+        public AnimatorController animator { get; set; } = null;
+        [field: SerializeField]
+        public string typeName { get; set; } = string.Empty;
     }
 }

@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <uie:ObjectField name="AnimatorController" type="UnityEditor.Animations.AnimatorController, UnityEditor.CoreModule" />
+    <ui:TextField picking-mode="Ignore" label="TypeName" name="TypeName" view-data-key="TypeName" />
+    <ui:ScrollView name="Parameters" />
+</ui:UXML>
