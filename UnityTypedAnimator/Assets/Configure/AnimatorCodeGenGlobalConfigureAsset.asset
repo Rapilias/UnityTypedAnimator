@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AnimatorCodeGenGlobalConfigureAsset
   m_EditorClassIdentifier: 
   exportDirectory: UnityTypedAnimator/Generated
-  exportFilePath: UnityTypedAnimator/Generated/Animators
+  exportFilePath: UnityTypedAnimator/Generated/Animators.cs
   exportNamespace: EgoParadise.UnityTypedAnimator.Generated
   typePrefix: 
   typeSuffix: 
-  splitFile: 1
+  splitFile: 0
   configures:
   - {fileID: 11400000, guid: 73f4d3793f523d745a1574d08f9bc290, type: 2}
-  - {fileID: 11400000, guid: bdd5aa60295993f489fedc4edc30aff3, type: 2}
+  - {fileID: 11400000, guid: cb69f3e997d32514aa30e2a89b5ee55e, type: 2}
