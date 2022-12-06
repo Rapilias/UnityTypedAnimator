@@ -25,16 +25,7 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             var paramsText = new TextField();
             var button = new Button(() =>
             {
-                var builder = new StringBuilder();
-                foreach (var item in targetAsset.animator.parameters)
-                {
-                    builder.Append($"{item.type.ToString()}: {item.name}\n");
-                }
-                foreach (var item in targetAsset.animator.layers)
-                {
-                    builder.Append($"Layer: {item.name}\n");
-                }
-                paramsText.SetValueWithoutNotify(builder.ToString());
+                this.Preview(paramsText);
             });
             button.text = "View Parameters";
             root.Add(button);
@@ -42,7 +33,26 @@ namespace EgoParadise.UnityTypedAnimator.Editor
             paramsText.SetEnabled(false);
             root.Add(paramsText);
 
+            this.Preview(paramsText);
+
             return root;
+        }
+
+        private void Preview(TextField text)
+        {
+            if (targetAsset?.animator == null)
+                return;
+
+            var builder = new StringBuilder();
+            foreach (var item in targetAsset.animator.parameters)
+            {
+                builder.Append($"{item.type.ToString()}: {item.name}\n");
+            }
+            foreach (var item in targetAsset.animator.layers)
+            {
+                builder.Append($"Layer: {item.name}\n");
+            }
+            text.SetValueWithoutNotify(builder.ToString());
         }
     }
 }
